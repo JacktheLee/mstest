@@ -1,0 +1,32 @@
+<div class="container">
+    <h1>게시판 만들기</h1>
+    
+    <form action="/write" method="POST">
+      <div class="form-group">
+        <label for="exampleInputEmail1">제목</label>
+        <input name="title" type="title" class="form-control" id="exampleInputEmail1" placeholder="제목을 입력해주세요">
+      </div>
+      <div class="form-group">
+         <label for="comment">Comment:</label>
+         <textarea name="content" class="form-control" rows="5" id="comment" placeholder="내용을 입력해주세요"></textarea>
+      </div>
+      <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+    <% @posts.each do |post| %>
+    <div class="well">
+        <p style="font-weight:bold;"><%=post.title%></p>
+        <p><%=post.content%></p>
+        <p>리플입니다</p>
+        <% post.replies.each do |reple| %>
+            <p><%= reple.content %></p>
+        <% end %>
+        <form action="/reply_write/<%=post.id%>" method="POST">
+          <div class="form-group">
+             <label for="comment">Comment:</label>
+             <textarea name="content" class="form-control" rows="5" id="comment" placeholder="내용을 입력해주세요"></textarea>
+          </div>
+          <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+    </div>
+    <% end %>
+</div>
